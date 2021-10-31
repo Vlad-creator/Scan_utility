@@ -26,24 +26,35 @@ that scans files in a directory in order to find **suspicious** files in it.
 ### Example
 
 ```cpp
->scan_util C:\Users\user\Downloads <br> <br> <br>
+>scan_util C:\Users\user\Downloads 
 
 
 
-====== Scan result ====== <br>
+====== Scan result ====== 
 
-Processed files: 150 <br>
+Processed files: 150 
 
-JS detects: 5 <br>
+JS detects: 5 
 
-CMD detects: 1 <br>
+CMD detects: 1 
 
-EXE detects: 2 <br>
+EXE detects: 2 
 
-Errors: 1 <br>
+Errors: 1 
 
-Execution time: 00:00:31 <br>
+Execution time: 00:00:31 
 
-========================= <br>
+========================= 
 ```
+
+### Technologies used:
+* Programming language - C++
+* std::filesystem - to travel the directory
+* std::fstream - to work with files
+
+### Main algorithm:
+Knuth-Morrisph-Pratt algorithm was use to find **suspicious** lines <br>
+in files.
+
+
 
