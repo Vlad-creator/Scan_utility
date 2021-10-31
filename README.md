@@ -25,10 +25,11 @@ that scans files in a directory in order to find **suspicious** files in it.
 
 ### Example
 
->scan_util C:\Users\user\Downloads <br>
-
-
 ```cpp
+>scan_util C:\Users\user\Downloads <br> <br> <br>
+
+
+
 ====== Scan result ====== <br>
 
 Processed files: 150 <br>
