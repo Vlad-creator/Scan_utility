@@ -1,7 +1,7 @@
-#include "src/includes.hpp"
-#include "src/scanner/scan.hpp"
-#include "src/susp/suspicious.hpp"
-#include "src/time.hpp"
+#include "include/includes.hpp"
+#include "include/scan.hpp"
+#include "include/suspicious.hpp"
+#include "include/time.hpp"
 
 using namespace susp;
 

@@ -1,4 +1,4 @@
-#include "scan.hpp"
+#include "../include/scan.hpp"
 
 namespace scan
 {

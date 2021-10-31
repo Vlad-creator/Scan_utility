@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../includes.hpp"
-#include "../susp/suspicious.hpp"
-#include "../time.hpp"
+#include "includes.hpp"
+#include "suspicious.hpp"
+#include "time.hpp"
 
 namespace scan
 {

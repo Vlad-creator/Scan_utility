@@ -1,4 +1,4 @@
-#include "suspicious.hpp"
+#include "../include/suspicious.hpp"
 
 namespace susp
 {
