@@ -37,9 +37,9 @@ namespace susp
 	std::vector<form_susp> fill_susps()
 	{
 		std::vector<form_susp> result;
-		result.push_back(form_susp{"js" , {".js"} , {"<script>evil_script()</script>"}});
-		result.push_back(form_susp{"cmd" , {".cmd" , ".bat"} , {"rd /s /q \"c:\\windows\""}});
-		result.push_back(form_susp{"exe" , {".exe" , ".dll"} , {"CreateRemoteThread" , "CreateProcess"}});
+		result.push_back(form_susp{"JS" , {".js"} , {"<script>evil_script()</script>"}});
+		result.push_back(form_susp{"CMD" , {".cmd" , ".bat"} , {"rd /s /q \"c:\\windows\""}});
+		result.push_back(form_susp{"EXE" , {".exe" , ".dll"} , {"CreateRemoteThread" , "CreateProcess"}});
 
 		return result;
 	}

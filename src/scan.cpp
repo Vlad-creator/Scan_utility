@@ -40,17 +40,19 @@ namespace scan
 					{
 						for (auto str = it->susp_strs.begin() ; str != it->susp_strs.end() ; ++str)
 						{
-							//std::vector<std::string> file = read_file(fs->path());
-							//for (auto check = file.begin() ; check != file.end() ; ++check)
-							//{
-								//if (KMP((*str) , (*check)))
-								//{
-									//counter++
-									//std::cout << "found error in " << fs->path().filename();
-									result.susps[it->name]++;
-									continue;
-								//}
-							//}
+								try
+								{
+									if (check_file(fs->path() , (*str)))
+									{
+										//std::cout << "found error in " << fs->path().filename() << std::endl;
+										result.susps[it->name]++;
+										continue;
+									}
+								}
+								catch (std::exception const& e)
+								{
+									result.errors++;
+								}
 						}
 					}
 				}
@@ -66,11 +68,15 @@ namespace scan
 		std::cout << std::endl << std::endl << std::endl;
 		std::cout << "====== Scan result ======" << std::endl << std::endl;
 		std::cout << "Processed files: " << files << std::endl << std::endl;
-		std::cout << "JS detects: " << susps["js"] << std::endl << std::endl;
-		std::cout << "CMD detects: " << susps["cmd"] << std::endl << std::endl;
-		std::cout << "EXE detects: " << susps["exe"] << std::endl << std::endl;
+		std::cout << "JS detects: " << susps["JS"] << std::endl << std::endl;
+		std::cout << "CMD detects: " << susps["CMD"] << std::endl << std::endl;
+		std::cout << "EXE detects: " << susps["EXE"] << std::endl << std::endl;
 		std::cout << "Errors: " << errors << std::endl << std::endl;
 		std::cout << "Execution time: ";
+		for (auto it = susps.begin() ; it != susps.end() ; ++it)
+		{
+			
+		}
 		std::cout.width(2);
 		std::cout.fill('0'); 
 		std::cout << scan_time / 3600 << ":";
@@ -83,12 +89,39 @@ namespace scan
 		std::cout << "=========================" << std::endl;
 	}
 
-	/*bool KMP(std::string sought , std::string for_scan)
+std::vector<size_t> prefix_f (std::string& sought)
+{
+	size_t length = sought.length();
+	std::vector<size_t> pref(length);
+	for (size_t i = 1 ; i < length ; ++i)
 	{
+		size_t j = pref[i - 1];
+		while ((j > 0) && (sought[i] != sought[j]))
+		{
+			j = pref[j - 1];
+		}
+		if (sought[i] == sought[j])
+		{
+			++j;
+		}
+		pref[i] = j;
+	}
+	return pref;
+}
 
-	}*/
+bool KMP(std::string& sought , std::string& for_scan)
+{
+	std::string res = sought + '#' + for_scan;
+	std::vector<size_t> pref = prefix_f(res);
+	for (size_t i = sought.length() + 1 ; i < res.length() ; ++i)
+	{
+		if (pref[i] == sought.length())
+			return true;
+	}
+	return false;
+}
 
-	std::vector<std::string> read_file(std::filesystem::path file)
+	bool check_file(const std::filesystem::path& file , std::string& sought)
 	{
 		std::vector<std::string> result;
 		std::string line;
@@ -97,10 +130,17 @@ namespace scan
     	{
 	        while (getline(in, line))
 	        {
-	           result.push_back(line);
+	           if (KMP(sought , line))
+	           {
+	           		return true;
+	           }
 	        }
     	}
+    	else
+    	{
+    		throw (std::logic_error{"error"});
+    	}
     	in.close();
-    	return result;
+    	return false;
 	}
 }
