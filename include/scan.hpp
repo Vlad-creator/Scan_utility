@@ -26,10 +26,13 @@ namespace scan
 		std::filesystem::path way;
 		std::vector<susp::form_susp> errs;
 
-		scan_dump result;
 	public:
+		scan_dump result;
+
 		scan(const char* Dir , std::vector<susp::form_susp>& errs_);
 		scan(const char* Dir , std::vector<susp::form_susp>&& errs_);
+		scan(const std::string Dir , std::vector<susp::form_susp>& errs_);
+		scan(const std::string Dir , std::vector<susp::form_susp>&& errs_);
 
 		bool scanning();
 

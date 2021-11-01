@@ -9,6 +9,7 @@ using namespace scan;
 
 #cmakedefine TEST_DIR_PATH_1 "@TEST_DIR_PATH_1@"
 #cmakedefine TEST_DIR_PATH_2 "@TEST_DIR_PATH_2@"
+#cmakedefine TEST_DIR_PATH_ANSW "@TEST_DIR_PATH_ANSW@"
 
 TEST(prefix , test)
 {
@@ -196,15 +197,159 @@ TEST(check_file , test)
 	}
 }
 
-/*TEST (main , test)
+TEST (main , test_1)
 {
-	std::vector<form_susp> susps = fill_susps();
+	std::vector<susp::form_susp> errs = susp::fill_susps();
 	try
 	{
+		bool res = 1;
 		std::string way_per1{TEST_DIR_PATH_2};
+		std::string way_answ1{TEST_DIR_PATH_ANSW};
+		std::string way_answ_per1{TEST_DIR_PATH_ANSW};
+
 		way_per1 = way_per1 + "/test_1";
+		way_answ1 = way_answ1 + "/test_answer1";
+		way_answ1 = way_answ_per1 + "/answer";
+
 		std::filesystem::path way1(way_per1);
-		scan::scan test(way1 , susps);
+		scan::scan test(way_per1 , errs);
 		test.scanning();
+
+		std::ofstream off(way_answ_per1);
+
+		int ch_per;
+		int ch_answ;
+    	if (off.is_open())
+    	{
+    		off << test.result.files;
+    		off << test.result.susps["JS"];
+    		off << test.result.susps["CMD"];
+    		off << test.result.susps["EXE"];
+    		off << test.result.errors;
+    	}
+        off.close();
+
+        std::ifstream off1(way_answ_per1);
+        std::ifstream answ(way_answ1);
+        if (off1.is_open() && answ.is_open())
+        while (off1 >> ch_per)
+        {
+        	answ >> ch_answ;
+        	if (ch_answ != ch_per)
+        	{
+        		res = false;
+        		break;
+        	}
+        }
+    	EXPECT_EQ(1 , res);
 	}
-}*/
+	catch (std::exception const& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+}
+
+
+TEST(main , test_2)
+{
+	std::vector<susp::form_susp> errs = susp::fill_susps();
+	try
+	{
+		bool res = 1;
+		std::string way_per{TEST_DIR_PATH_2};
+		std::string way_answ{TEST_DIR_PATH_ANSW};
+		std::string way_answ_per{TEST_DIR_PATH_ANSW};
+
+		way_per = way_per + "/test_2";
+		way_answ = way_answ + "/test_answer2";
+		way_answ = way_answ_per + "/answer";
+
+		std::filesystem::path way(way_per);
+		scan::scan test(way_per , errs);
+		test.scanning();
+
+		std::ofstream off(way_answ_per);
+
+		int ch_per;
+		int ch_answ;
+    	if (off.is_open())
+    	{
+    		off << test.result.files;
+    		off << test.result.susps["JS"];
+    		off << test.result.susps["CMD"];
+    		off << test.result.susps["EXE"];
+    		off << test.result.errors;
+    	}
+        off.close();
+
+        std::ifstream off1(way_answ_per);
+        std::ifstream answ(way_answ);
+        if (off1.is_open() && answ.is_open())
+        while (off1 >> ch_per)
+        {
+        	answ >> ch_answ;
+        	if (ch_answ != ch_per)
+        	{
+        		res = false;
+        		break;
+        	}
+        }
+    	EXPECT_EQ(1 , res);
+	}
+	catch (std::exception const& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+}
+
+TEST(main , test_3)
+{
+	std::vector<susp::form_susp> errs = susp::fill_susps();
+	try
+	{
+		bool res = 1;
+		std::string way_per{TEST_DIR_PATH_2};
+		std::string way_answ{TEST_DIR_PATH_ANSW};
+		std::string way_answ_per{TEST_DIR_PATH_ANSW};
+
+		way_per = way_per + "/test_3";
+		way_answ = way_answ + "/test_answer3";
+		way_answ = way_answ_per + "/answer";
+
+		std::filesystem::path way(way_per);
+		scan::scan test(way_per , errs);
+		test.scanning();
+
+		std::ofstream off(way_answ_per);
+
+		int ch_per;
+		int ch_answ;
+    	if (off.is_open())
+    	{
+    		off << test.result.files;
+    		off << test.result.susps["JS"];
+    		off << test.result.susps["CMD"];
+    		off << test.result.susps["EXE"];
+    		off << test.result.errors;
+    	}
+        off.close();
+
+        std::ifstream off1(way_answ_per);
+        std::ifstream answ(way_answ);
+        if (off1.is_open() && answ.is_open())
+        while (off1 >> ch_per)
+        {
+        	answ >> ch_answ;
+        	if (ch_answ != ch_per)
+        	{
+        		res = false;
+        		break;
+        	}
+        }
+    	EXPECT_EQ(1 , res);
+	}
+	catch (std::exception const& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+}
