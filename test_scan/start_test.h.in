@@ -1,0 +1,196 @@
+#include <gtest/gtest.h>
+
+#include "../include/includes.hpp"
+#include "../include/scan.hpp"
+#include "../include/suspicious.hpp"
+#include "../include/time.hpp"
+
+using namespace scan;
+
+#cmakedefine TEST_DIR_PATH "@TEST_DIR_PATH@"
+
+TEST(prefix , test)
+{
+		std::string per1 = "aabaa";
+		std::vector<size_t> res1 = {0 , 1 , 0 , 1 , 2};
+		std::vector<size_t>res_per1 = prefix_f(per1);
+	EXPECT_EQ (1, res1 == res_per1);
+
+		std::string per2 = "abcabc";
+		std::vector<size_t> res2 = {0 , 0 , 0 , 1 , 2 , 3};
+		std::vector<size_t>res_per2 = prefix_f(per2);
+	EXPECT_EQ (1, res2 == res_per2);
+
+		std::string per3 = "1234567890qwerty";
+		std::vector<size_t> res3(per3.length());
+		std::vector<size_t>res_per3 = prefix_f(per3);
+	EXPECT_EQ (1, res3 == res_per3);
+
+		std::string per4 = "";
+		std::vector<size_t> res4(per4.length());
+		std::vector<size_t>res_per4 = prefix_f(per4);
+	EXPECT_EQ (1, res4 == res_per4);
+}
+
+TEST(KMP , test)
+{
+		std::string for_scan1 = "aejhrgsoulvbrwtrtbothelloelsdhvbkst";
+		std::string sought1 = "hello";
+	EXPECT_EQ(1 , KMP(sought1 , for_scan1));
+
+		std::string for_scan2 = "aejhrgsoulvb#rwtrtb#othelloelsdhvbk#st";
+		std::string sought2 = "hello";
+	EXPECT_EQ(1 , KMP(sought2 , for_scan2));
+
+		std::string for_scan3 = "aejhrgsoulvbrwtrtbothelloelsdhvbkst";
+		std::string sought3 = "false";
+	EXPECT_EQ(0 , KMP(sought3 , for_scan3));
+
+		std::string for_scan4 = "aejhrgsoulvbrwtrtbothel  loelsdhvbkst";
+		std::string sought4 = "hello";
+	EXPECT_EQ(0 , KMP(sought4 , for_scan4));
+
+		std::string for_scan5 = "aejhrgsoulvbrwtrtbot  hello  elsdhvbkst";
+		std::string sought5 = "hello";
+	EXPECT_EQ(1 , KMP(sought5 , for_scan5));
+
+		std::string for_scan6 = "";
+		std::string sought6 = "hello";
+	EXPECT_EQ(0 , KMP(sought6 , for_scan6));
+
+		std::string for_scan7 = "hello";
+		std::string sought7 = "hello";
+	EXPECT_EQ(1 , KMP(sought7 , for_scan7));
+}
+
+TEST(check_file , test)
+{
+	try
+	{
+		std::string way_per1{TEST_DIR_PATH};
+		way_per1 = way_per1 + "/1.txt";
+		std::vector<susp::form_susp> errs = susp::fill_susps();
+		bool res_per1;
+		std::filesystem::path way1(way_per1);
+		for (auto it = errs.begin() ; it != errs.end() ; ++it)
+		{
+			for (auto str = it->susp_strs.begin() ; str != it->susp_strs.end() ; ++str)
+			{
+				res_per1 = check_file(way1 , (*str));
+				if (res_per1 == true)
+				{
+					break;
+				}
+			}
+			if (res_per1 == true)
+						break;
+		}
+	EXPECT_EQ(1, res_per1);
+
+		bool res_per2;
+		std::string way_per2{TEST_DIR_PATH};
+		way_per2 = way_per2 + "/2.dll";
+		std::filesystem::path way2(way_per2);
+		for (auto it = errs.begin() ; it != errs.end() ; ++it)
+		{
+			for (auto str = it->susp_strs.begin() ; str != it->susp_strs.end() ; ++str)
+			{
+				res_per2 = check_file(way2 , (*str));
+				if (res_per2 == true)
+					break;
+			}
+			if (res_per2 == true)
+						break;
+		}
+	EXPECT_EQ(1 , res_per2);
+
+		bool res_per3;
+		std::string way_per3{TEST_DIR_PATH};
+		way_per3 = way_per3 + "/3.dll";
+		std::filesystem::path way3(way_per3);
+		for (auto it = errs.begin() ; it != errs.end() ; ++it)
+		{
+			for (auto str = it->susp_strs.begin() ; str != it->susp_strs.end() ; ++str)
+			{
+				res_per3 = check_file(way3 , (*str));
+				if (res_per3 == true)
+					break;
+			}
+			if (res_per3 == true)
+						break;
+		}
+	EXPECT_EQ(0 , res_per3);
+
+		bool res_per4;
+		std::string way_per4{TEST_DIR_PATH};
+		way_per4 = way_per4 + "/4.bat";
+		std::filesystem::path way4(way_per4);
+		for (auto it = errs.begin() ; it != errs.end() ; ++it)
+		{
+			for (auto str = it->susp_strs.begin() ; str != it->susp_strs.end() ; ++str)
+			{
+				res_per4 = check_file(way4 , (*str));
+				if (res_per4 == true)
+					break;
+			}
+			if (res_per4 == true)
+						break;
+		}
+	EXPECT_EQ(1 , res_per4);
+
+		bool res_per5;
+		std::string way_per5{TEST_DIR_PATH};
+		way_per5 = way_per5 + "/5.bat";
+		std::filesystem::path way5(way_per5);
+		for (auto it = errs.begin() ; it != errs.end() ; ++it)
+		{
+			for (auto str = it->susp_strs.begin() ; str != it->susp_strs.end() ; ++str)
+			{
+				res_per5 = check_file(way5 , (*str));
+				if (res_per5 == true)
+							break;
+			}
+			if (res_per5 == true)
+						break;
+		}
+	EXPECT_EQ(1 , res_per5);
+
+		bool res_per6;
+		std::string way_per6{TEST_DIR_PATH};
+		way_per6 = way_per6 + "/6.js";
+		std::filesystem::path way6(way_per6);
+		for (auto it = errs.begin() ; it != errs.end() ; ++it)
+		{
+			for (auto str = it->susp_strs.begin() ; str != it->susp_strs.end() ; ++str)
+			{
+				res_per6 = check_file(way6 , (*str));
+				if (res_per6 == true)
+					break;
+			}
+			if (res_per6 == true)
+						break;
+		}
+	EXPECT_EQ(0 , res_per6);
+
+		bool res_per7;
+		std::string way_per7{TEST_DIR_PATH};
+		way_per7 = way_per7 + "/7.js";
+		std::filesystem::path way7(way_per7);
+		for (auto it = errs.begin() ; it != errs.end() ; ++it)
+		{
+			for (auto str = it->susp_strs.begin() ; str != it->susp_strs.end() ; ++str)
+			{
+				res_per7 = check_file(way7 , (*str));
+				if (res_per7 == true)
+					break;
+			}
+			if (res_per7 == true)
+						break;
+		}
+	EXPECT_EQ(1 , res_per7);
+	}
+	catch (std::exception const& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+}

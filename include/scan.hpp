@@ -36,7 +36,7 @@ namespace scan
 		void dump();
 	};
 
-	bool KNP(std::string& sought , std::string& for_scan);
+	bool KMP(std::string& sought , std::string& for_scan);
 	bool check_file(const std::filesystem::path& file , std::string& sought);
 	std::vector<size_t> prefix_f (std::string& sought);
 }
