@@ -44,7 +44,6 @@ namespace scan
 								{
 									if (check_file(fs->path() , (*str)))
 									{
-										//std::cout << "found error in " << fs->path().filename() << std::endl;
 										result.susps[it->name]++;
 										continue;
 									}
@@ -73,10 +72,6 @@ namespace scan
 		std::cout << "EXE detects: " << susps["EXE"] << std::endl << std::endl;
 		std::cout << "Errors: " << errors << std::endl << std::endl;
 		std::cout << "Execution time: ";
-		for (auto it = susps.begin() ; it != susps.end() ; ++it)
-		{
-			
-		}
 		std::cout.width(2);
 		std::cout.fill('0'); 
 		std::cout << scan_time / 3600 << ":";
@@ -132,6 +127,8 @@ bool KMP(std::string& sought , std::string& for_scan)
 	        {
 	           if (KMP(sought , line))
 	           {
+	           		std::cout << line << std::endl;
+	           		std::cout << file.filename() << std::endl;
 	           		return true;
 	           }
 	        }

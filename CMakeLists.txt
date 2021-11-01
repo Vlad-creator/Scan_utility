@@ -29,7 +29,9 @@ include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
 add_executable(${PROJECT_NAME} ${HEADERS} ${SRCs})
 
 # test
-set(TEST_DIR_PATH ${CMAKE_CURRENT_SOURCE_DIR}/${TEST_DIR}/e2e_tests_check_file)
+set(TEST_DIR_PATH_1 ${CMAKE_CURRENT_SOURCE_DIR}/${TEST_DIR}/e2e_tests_check_file)
+set(TEST_DIR_PATH_2 ${CMAKE_CURRENT_SOURCE_DIR}/${TEST_DIR}/e2e_tests_main)
+
 configure_file(${TEST}.in ${TEST} @ONLY)
 
 add_executable(RunUnitTests ${SRCs} ${HEADERS} ${CMAKE_BINARY_DIR}/${TEST_DIR})

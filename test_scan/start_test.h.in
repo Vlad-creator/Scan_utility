@@ -7,7 +7,8 @@
 
 using namespace scan;
 
-#cmakedefine TEST_DIR_PATH "@TEST_DIR_PATH@"
+#cmakedefine TEST_DIR_PATH_1 "@TEST_DIR_PATH_1@"
+#cmakedefine TEST_DIR_PATH_2 "@TEST_DIR_PATH_2@"
 
 TEST(prefix , test)
 {
@@ -67,7 +68,7 @@ TEST(check_file , test)
 {
 	try
 	{
-		std::string way_per1{TEST_DIR_PATH};
+		std::string way_per1{TEST_DIR_PATH_1};
 		way_per1 = way_per1 + "/1.txt";
 		std::vector<susp::form_susp> errs = susp::fill_susps();
 		bool res_per1;
@@ -88,7 +89,7 @@ TEST(check_file , test)
 	EXPECT_EQ(1, res_per1);
 
 		bool res_per2;
-		std::string way_per2{TEST_DIR_PATH};
+		std::string way_per2{TEST_DIR_PATH_1};
 		way_per2 = way_per2 + "/2.dll";
 		std::filesystem::path way2(way_per2);
 		for (auto it = errs.begin() ; it != errs.end() ; ++it)
@@ -105,7 +106,7 @@ TEST(check_file , test)
 	EXPECT_EQ(1 , res_per2);
 
 		bool res_per3;
-		std::string way_per3{TEST_DIR_PATH};
+		std::string way_per3{TEST_DIR_PATH_1};
 		way_per3 = way_per3 + "/3.dll";
 		std::filesystem::path way3(way_per3);
 		for (auto it = errs.begin() ; it != errs.end() ; ++it)
@@ -122,7 +123,7 @@ TEST(check_file , test)
 	EXPECT_EQ(0 , res_per3);
 
 		bool res_per4;
-		std::string way_per4{TEST_DIR_PATH};
+		std::string way_per4{TEST_DIR_PATH_1};
 		way_per4 = way_per4 + "/4.bat";
 		std::filesystem::path way4(way_per4);
 		for (auto it = errs.begin() ; it != errs.end() ; ++it)
@@ -139,7 +140,7 @@ TEST(check_file , test)
 	EXPECT_EQ(1 , res_per4);
 
 		bool res_per5;
-		std::string way_per5{TEST_DIR_PATH};
+		std::string way_per5{TEST_DIR_PATH_1};
 		way_per5 = way_per5 + "/5.bat";
 		std::filesystem::path way5(way_per5);
 		for (auto it = errs.begin() ; it != errs.end() ; ++it)
@@ -156,7 +157,7 @@ TEST(check_file , test)
 	EXPECT_EQ(1 , res_per5);
 
 		bool res_per6;
-		std::string way_per6{TEST_DIR_PATH};
+		std::string way_per6{TEST_DIR_PATH_1};
 		way_per6 = way_per6 + "/6.js";
 		std::filesystem::path way6(way_per6);
 		for (auto it = errs.begin() ; it != errs.end() ; ++it)
@@ -173,7 +174,7 @@ TEST(check_file , test)
 	EXPECT_EQ(0 , res_per6);
 
 		bool res_per7;
-		std::string way_per7{TEST_DIR_PATH};
+		std::string way_per7{TEST_DIR_PATH_1};
 		way_per7 = way_per7 + "/7.js";
 		std::filesystem::path way7(way_per7);
 		for (auto it = errs.begin() ; it != errs.end() ; ++it)
@@ -194,3 +195,16 @@ TEST(check_file , test)
 		std::cout << e.what() << std::endl;
 	}
 }
+
+/*TEST (main , test)
+{
+	std::vector<form_susp> susps = fill_susps();
+	try
+	{
+		std::string way_per1{TEST_DIR_PATH_2};
+		way_per1 = way_per1 + "/test_1";
+		std::filesystem::path way1(way_per1);
+		scan::scan test(way1 , susps);
+		test.scanning();
+	}
+}*/
