@@ -56,5 +56,21 @@ Execution time: 00:00:31
 Knuth-Morrisph-Pratt algorithm was use to find **suspicious** lines <br>
 in files.
 
+### How to build:
+Create directory 'build', than open terminal and do this comands:
+```cpp
+>cd build
+>cmake .. 
+>cd ..
+>cmake --build build
+```
+It will create the project in 'build'
+```cpp
+>./SCANNER <directory> //to run the program
+```
+
+## Gratitude
+Thanks to me for doing this project.
+
 
 
