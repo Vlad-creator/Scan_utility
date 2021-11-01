@@ -66,7 +66,10 @@ Create directory ```build```, than open terminal and do this comands:
 ```
 It will create the project in ```build```
 ```cpp
->./SCANNER <directory> //to run the program
+>./SCANNER <directory> //to run the utility
+```
+```cpp
+>./RunUnitTests //to run tests
 ```
 
 ## Gratitude
