@@ -9,9 +9,9 @@ that scans files in a directory in order to find **suspicious** files in it.
 
 ### Within the framework of the task, 3 types of “suspicious” content in the file were identified:
 
-1. JS suspicious: js file containing the line: '<script>evil_script()</script>'
-2. CMD suspicious: CMD/BAT file containing the line: 'rd /s /q "c:\windows"'
-3. EXE suspicious: EXE/DLL file containing lines: 'CreateRemoteThread, CreateProcess'
+1. JS suspicious: js file containing the line: '''<script>evil_script()</script>'''
+2. CMD suspicious: CMD/BAT file containing the line: '''rd /s /q "c:\windows"'''
+3. EXE suspicious: EXE/DLL file containing lines: '''CreateRemoteThread, CreateProcess'''
 
 ### Upon completion of the utility, the user should be presented <br>
 ### with a scan report containing the following information:
@@ -57,14 +57,14 @@ Knuth-Morrisph-Pratt algorithm was use to find **suspicious** lines <br>
 in files.
 
 ### How to build:
-Create directory 'build', than open terminal and do this comands:
+Create directory '''build''', than open terminal and do this comands:
 ```cpp
 >cd build
 >cmake .. 
 >cd ..
 >cmake --build build
 ```
-It will create the project in 'build'
+It will create the project in '''build'''
 ```cpp
 >./SCANNER <directory> //to run the program
 ```
