@@ -1,5 +1,6 @@
 # Scan_utility
-Utility for scanning files in directory
+* Utility for scanning files in directory
+* Written and tested on linux platform, results obtained on windows differ from those obtained on linux
 
 ## Problem
 ---
