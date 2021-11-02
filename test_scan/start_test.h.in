@@ -235,7 +235,12 @@ TEST (main , test_1)
 
 		std::filesystem::path way1(way_per1);
 		scan::scan test(way_per1 , errs);
-		test.scanning();
+
+		#ifdef PARALLEL
+			test.scanning_thread();
+		#else
+			test.scanning();
+		#endif
 
 		std::ofstream off(way_answ_per1);
 
@@ -288,7 +293,12 @@ TEST(main , test_2)
 
 		std::filesystem::path way(way_per);
 		scan::scan test(way_per , errs);
-		test.scanning();
+		
+		#ifdef PARALLEL
+			test.scanning_thread();
+		#else
+			test.scanning();
+		#endif
 
 		std::ofstream off(way_answ_per);
 
@@ -340,7 +350,12 @@ TEST(main , test_3)
 
 		std::filesystem::path way(way_per);
 		scan::scan test(way_per , errs);
-		test.scanning();
+		
+		#ifdef PARALLEL
+			test.scanning_thread();
+		#else
+			test.scanning();
+		#endif
 
 		std::ofstream off(way_answ_per);
 

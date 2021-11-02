@@ -47,6 +47,17 @@ namespace scan
 		 */
 		bool scanning();
 
+		/*!function that scanning directory with std::thread
+		 *
+		 * @result true - scanning was successfull
+		 */
+		bool scanning_thread();
+
+		/*!
+		 * function that using in making thread
+		 */
+		void ThreadFunc(std::vector<std::filesystem::path>& files , scan_dump& result);
+
 		void dump();
 	};
 

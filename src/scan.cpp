@@ -80,6 +80,87 @@ namespace scan
 		return true;
 	}
 
+	bool scan::scanning_thread()
+	{
+		my_time::Timer clock;
+		std::filesystem::directory_iterator start(way) , fin;
+		std::vector<std::filesystem::directory_entry> entries(start , fin);
+
+		size_t num_thr = std::thread::hardware_concurrency();
+		std::vector<std::vector<std::filesystem::path>> thr_paths(num_thr);
+
+		size_t counter = 0;
+		size_t num_files = 0;
+		for (auto fs = entries.begin() ; fs != entries.end() ; ++fs)
+		{
+			thr_paths[counter].push_back(fs->path());
+			counter++;
+			num_files++;
+			if (counter == num_thr)
+				counter = 0; 
+		}
+
+		result.files = num_files;
+
+		if (num_files < num_thr)
+			num_thr = num_files;
+
+		std::vector<std::thread> THrs;
+		std::vector<scan_dump> thrs_results(num_thr);
+
+
+		for (size_t i = 0 ; i < num_thr ; ++i)
+		{
+			THrs.push_back(std::thread([this , i , &thr_paths , &thrs_results] {
+				ThreadFunc(thr_paths[i] , thrs_results[i]);
+			}));
+		}
+
+		counter = 0;
+		for (auto it = THrs.begin() ; it != THrs.end() ; ++it)
+		{
+			(*it).join();
+			result.susps["JS"] += thrs_results[counter].susps["JS"];
+			result.susps["CMD"] += thrs_results[counter].susps["CMD"];
+			result.susps["EXE"] += thrs_results[counter].susps["EXE"];
+			result.errors += thrs_results[counter].errors;
+			counter++;
+		}
+		result.scan_time = clock.get_s();
+		return true;
+	}
+
+	void scan::ThreadFunc(std::vector<std::filesystem::path>& files, scan_dump& result) 
+	{
+		for (auto fs = files.begin() ; fs != files.end() ; ++fs)
+		{
+			for (auto it = errs.begin() ; it != errs.end() ; ++it)
+			{
+				for (auto tp = it->formats.begin() ; tp != it->formats.end() ; ++tp)
+				{
+					if (fs->extension() == (*tp))
+					{
+						for (auto str = it->susp_strs.begin() ; str != it->susp_strs.end() ; ++str)
+						{
+							try
+							{
+								if (check_file((*fs) , (*str)))
+								{
+									result.susps[it->name]++;
+									continue;
+								}
+							}
+							catch (std::exception const& e)
+							{
+								result.errors++;
+							}
+						}
+					}
+				}
+			} 
+		}
+	}
+
 	void scan_dump::dump()
 	{
 		std::cout << std::endl << std::endl << std::endl;

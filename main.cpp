@@ -20,11 +20,17 @@ int main(int argc , char* argv[])
 	    ::testing::InitGoogleTest(&argc, argv);
 	    return RUN_ALL_TESTS();
 	#endif
+
 	std::vector<form_susp> susps = fill_susps();
 
 	scan::scan test(argv[1] , susps);
-	test.scanning();
-	test.dump();
 
+	#ifdef PARALLEL
+		test.scanning_thread();
+	#else
+		test.scanning();
+	#endif
+
+	test.dump();
 	return 0;
 }

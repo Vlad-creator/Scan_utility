@@ -28,6 +28,12 @@ set(TEST ${TEST_DIR}/start_test.h)
 include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
 add_executable(${PROJECT_NAME} ${HEADERS} ${SRCs})
 
+# parallel main
+set(CMAKE_CXX_FLAGS  "-pthread -lpthread")
+include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
+add_executable(${PROJECT_NAME}_PAR ${HEADERS} ${SRCs})
+target_compile_definitions(${PROJECT_NAME}_PAR PRIVATE PARALLEL)
+
 # test
 set(TEST_DIR_PATH_1 ${CMAKE_CURRENT_SOURCE_DIR}/${TEST_DIR}/e2e_tests_check_file)
 set(TEST_DIR_PATH_2 ${CMAKE_CURRENT_SOURCE_DIR}/${TEST_DIR}/e2e_tests_main)
@@ -38,6 +44,10 @@ configure_file(${TEST}.in ${TEST} @ONLY)
 add_executable(RunUnitTests ${SRCs} ${HEADERS} ${CMAKE_BINARY_DIR}/${TEST_DIR})
 target_compile_definitions(RunUnitTests PRIVATE TEST)
 
+# test parallel
+add_executable(RunUnitTests_par ${SRCs} ${HEADERS} ${CMAKE_BINARY_DIR}/${TEST_DIR})
+target_compile_definitions(RunUnitTests_par PRIVATE TEST PARALLEL)
+
 include(GoogleTest)
 gtest_discover_tests(RunUnitTests)
 
@@ -46,4 +56,12 @@ target_include_directories(RunUnitTests PRIVATE include)
 target_include_directories(RunUnitTests PRIVATE src)
 
 target_link_libraries(RunUnitTests gtest gtest_main)
+
+gtest_discover_tests(RunUnitTests_par)
+
+target_include_directories(RunUnitTests_par PRIVATE ${TEST_DIR})
+target_include_directories(RunUnitTests_par PRIVATE include)
+target_include_directories(RunUnitTests_par PRIVATE src)
+
+target_link_libraries(RunUnitTests_par gtest gtest_main)
 
