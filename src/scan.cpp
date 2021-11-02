@@ -11,7 +11,7 @@ namespace scan
 		}
 	}
 
-	scan::scan(const std::string Dir , std::vector<susp::form_susp>& errs_): errs(errs_)
+	scan::scan(const std::string& Dir , std::vector<susp::form_susp>& errs_): errs(errs_)
 	{
 		way = std::filesystem::path(Dir);
 		for (auto it = errs_.begin() ; it != errs_.end() ; ++it)
@@ -29,7 +29,7 @@ namespace scan
 		}
 	}
 
-	scan::scan(const std::string Dir , std::vector<susp::form_susp>&& errs_): errs(errs_)
+	scan::scan(const std::string& Dir , std::vector<susp::form_susp>&& errs_): errs(errs_)
 	{
 		way = std::filesystem::path(Dir);
 		for (auto it = errs_.begin() ; it != errs_.end() ; ++it)

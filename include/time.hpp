@@ -6,6 +6,9 @@
 
 namespace my_time{
 
+/*!
+ * class Timer makes work with time easier
+ */
 class Timer final
 {
 private:

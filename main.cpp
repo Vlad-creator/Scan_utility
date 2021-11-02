@@ -3,6 +3,10 @@
 #include "include/suspicious.hpp"
 #include "include/time.hpp"
 
+/*!
+ * Use TEST for compile and start Unit/E2E tests of this utility
+ */
+
 #ifdef TEST
 	#include <gtest/gtest.h>
 	#include "build/test_scan/start_test.h"
@@ -24,5 +28,3 @@ int main(int argc , char* argv[])
 
 	return 0;
 }
-
-///home/vladislav/again/LK_sc/tests/test_1

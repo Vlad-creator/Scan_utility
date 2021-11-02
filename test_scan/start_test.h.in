@@ -7,10 +7,21 @@
 
 using namespace scan;
 
+/*!
+ * Cmake defines than became defines with the right way
+ * TEST_DIR_PATH_1 - way to "e2e_tests_check_file"
+ * TEST_DIR_PATH_2 - way to "e2e_tests_main"
+ * TEST_DIR_PATH_2 - way to "e2e_tests_main_result"
+ */
 #cmakedefine TEST_DIR_PATH_1 "@TEST_DIR_PATH_1@"
 #cmakedefine TEST_DIR_PATH_2 "@TEST_DIR_PATH_2@"
 #cmakedefine TEST_DIR_PATH_ANSW "@TEST_DIR_PATH_ANSW@"
 
+
+
+/*!
+ * Test for generation Prefix function
+ */
 TEST(prefix , test)
 {
 		std::string per1 = "aabaa";
@@ -34,6 +45,9 @@ TEST(prefix , test)
 	EXPECT_EQ (1, res4 == res_per4);
 }
 
+/*!
+ * Test for Knuth-Morrisph-Pratt algorithm
+ */
 TEST(KMP , test)
 {
 		std::string for_scan1 = "aejhrgsoulvbrwtrtbothelloelsdhvbkst";
@@ -65,6 +79,10 @@ TEST(KMP , test)
 	EXPECT_EQ(1 , KMP(sought7 , for_scan7));
 }
 
+/*!
+ * Test for using Knuth-Morrisph-Pratt algorithm
+ * in checking files
+ */
 TEST(check_file , test)
 {
 	try
@@ -197,6 +215,10 @@ TEST(check_file , test)
 	}
 }
 
+/*!
+ * Tests for main function
+ * that scanning the directory
+ */
 TEST (main , test_1)
 {
 	std::vector<susp::form_susp> errs = susp::fill_susps();
