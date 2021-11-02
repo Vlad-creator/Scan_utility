@@ -130,7 +130,7 @@ namespace scan
 		return true;
 	}
 
-	void scan::ThreadFunc(std::vector<std::filesystem::path>& files, scan_dump& result) 
+	void scan::ThreadFunc(const std::vector<std::filesystem::path>& files, scan_dump& result) 
 	{
 		for (auto fs = files.begin() ; fs != files.end() ; ++fs)
 		{
@@ -183,7 +183,7 @@ namespace scan
 		std::cout << "=========================" << std::endl;
 	}
 
-std::vector<size_t> prefix_f (std::string& sought)
+std::vector<size_t> prefix_f (const std::string& sought)
 {
 	size_t length = sought.length();
 	std::vector<size_t> pref(length);
@@ -203,7 +203,7 @@ std::vector<size_t> prefix_f (std::string& sought)
 	return pref;
 }
 
-bool KMP(std::string& sought , std::string& for_scan)
+bool KMP(const std::string& sought , const std::string& for_scan)
 {
 	std::string res = sought + '#' + for_scan;
 	std::vector<size_t> pref = prefix_f(res);
@@ -215,7 +215,7 @@ bool KMP(std::string& sought , std::string& for_scan)
 	return false;
 }
 
-	bool check_file(const std::filesystem::path& file , std::string& sought)
+	bool check_file(const std::filesystem::path& file , const std::string& sought)
 	{
 		std::vector<std::string> result;
 		std::string line;

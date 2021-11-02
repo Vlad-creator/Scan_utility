@@ -56,6 +56,7 @@ target_include_directories(RunUnitTests PRIVATE src)
 
 target_link_libraries(RunUnitTests gtest gtest_main)
 
+
 gtest_discover_tests(RunUnitTests_par)
 
 target_include_directories(RunUnitTests_par PRIVATE ${TEST_DIR})

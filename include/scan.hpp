@@ -56,7 +56,7 @@ namespace scan
 		/*!
 		 * function that using in making thread
 		 */
-		void ThreadFunc(std::vector<std::filesystem::path>& files , scan_dump& result);
+		void ThreadFunc(const std::vector<std::filesystem::path>& files , scan_dump& result);
 
 		void dump();
 	};
@@ -69,7 +69,7 @@ namespace scan
 	 * 
 	 * @result true - found , false - not found
 	 */
-	bool KMP(std::string& sought , std::string& for_scan);
+	bool KMP(const std::string& sought , const std::string& for_scan);
 
 	/*!function for checking file for line presence
 	 * 
@@ -78,7 +78,7 @@ namespace scan
 	 * 
 	 * @result true - found , false - not found
 	 */
-	bool check_file(const std::filesystem::path& file , std::string& sought);
+	bool check_file(const std::filesystem::path& file , const std::string& sought);
 
 	/*!function for making prefix function of string
 	 * 
@@ -86,5 +86,5 @@ namespace scan
 	 * 
 	 * @result prefix function of sought string
 	 */
-	std::vector<size_t> prefix_f (std::string& sought);
+	std::vector<size_t> prefix_f (const std::string& sought);
 }
