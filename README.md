@@ -70,7 +70,13 @@ It will create the project in ```build```
 >./SCANNER <directory> //to run the utility
 ```
 ```cpp
+>./SCANNER_PAR <directory> //to run the utility with threads
+```
+```cpp
 >./RunUnitTests //to run tests
+```
+```cpp
+>./RunUnitTests_par //to run tests with threads
 ```
 
 ## Gratitude
