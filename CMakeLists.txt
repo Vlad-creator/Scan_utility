@@ -30,7 +30,6 @@ add_executable(${PROJECT_NAME} ${HEADERS} ${SRCs})
 
 # parallel main
 set(CMAKE_CXX_FLAGS  "-pthread -lpthread")
-include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
 add_executable(${PROJECT_NAME}_PAR ${HEADERS} ${SRCs})
 target_compile_definitions(${PROJECT_NAME}_PAR PRIVATE PARALLEL)
 
