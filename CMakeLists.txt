@@ -21,16 +21,16 @@ FetchContent_MakeAvailable(googletest)
 set(TEST_DIR test_scan)
 
 set(HEADERS include/suspicious.hpp include/scan.hpp include/time.hpp include/includes.hpp)
-set(SRCs src/scan.cpp src/suspicious.cpp main.cpp)
+set(SRCs src/scan.cpp src/suspicious.cpp)
 set(TEST ${TEST_DIR}/start_test.h)
 
 # main
 include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
-add_executable(${PROJECT_NAME} ${HEADERS} ${SRCs})
+add_executable(${PROJECT_NAME} ${HEADERS} ${SRCs} main.cpp)
 
 # parallel main
 set(CMAKE_CXX_FLAGS  "-pthread -lpthread")
-add_executable(${PROJECT_NAME}_PAR ${HEADERS} ${SRCs})
+add_executable(${PROJECT_NAME}_PAR ${HEADERS} ${SRCs} main.cpp)
 target_compile_definitions(${PROJECT_NAME}_PAR PRIVATE PARALLEL)
 
 # test
@@ -39,12 +39,13 @@ set(TEST_DIR_PATH_2 ${CMAKE_CURRENT_SOURCE_DIR}/${TEST_DIR}/e2e_tests_main)
 set(TEST_DIR_PATH_ANSW ${CMAKE_CURRENT_SOURCE_DIR}/${TEST_DIR}/e2e_tests_main_result)
 
 configure_file(${TEST}.in ${TEST} @ONLY)
+configure_file(main.cpp main.cpp @ONLY)
 
-add_executable(RunUnitTests ${SRCs} ${HEADERS} ${CMAKE_BINARY_DIR}/${TEST_DIR})
+add_executable(RunUnitTests ${CMAKE_BINARY_DIR}/main.cpp ${SRCs} ${HEADERS} ${CMAKE_BINARY_DIR}/${TEST_DIR})
 target_compile_definitions(RunUnitTests PRIVATE TEST)
 
 # test parallel
-add_executable(RunUnitTests_par ${SRCs} ${HEADERS} ${CMAKE_BINARY_DIR}/${TEST_DIR})
+add_executable(RunUnitTests_par ${CMAKE_BINARY_DIR}/main.cpp ${SRCs} ${HEADERS} ${CMAKE_BINARY_DIR}/${TEST_DIR})
 target_compile_definitions(RunUnitTests_par PRIVATE TEST PARALLEL)
 
 include(GoogleTest)

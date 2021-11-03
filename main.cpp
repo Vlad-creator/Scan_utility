@@ -1,7 +1,7 @@
-#include "include/includes.hpp"
-#include "include/scan.hpp"
-#include "include/suspicious.hpp"
-#include "include/time.hpp"
+#include "../include/includes.hpp"
+#include "../include/scan.hpp"
+#include "../include/suspicious.hpp"
+#include "../include/time.hpp"
 
 /*!
  * Use TEST for compile and start Unit/E2E tests of this utility
@@ -9,7 +9,7 @@
 
 #ifdef TEST
 	#include <gtest/gtest.h>
-	#include "build/test_scan/start_test.h"
+	#include "test_scan/start_test.h"
 #endif
 
 using namespace susp;
